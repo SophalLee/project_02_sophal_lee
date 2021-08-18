@@ -7,6 +7,10 @@ const telephone = document.getElementById('telephone');
 const email = document.getElementById('email');
 const message = document.getElementById('message');
 
+const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9 \.'\-]+$/;
+const regexNumber = /^[0-9\s]*$/;
+const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -22,23 +26,13 @@ successMessageButton.addEventListener('click', () => {
 
 /* Validate input from form */
 function checkInputs() {
-    const firstnameValue = firstname.value.trim();
-    const surnameValue = surname.value.trim();
-    const telephoneValue = telephone.value.trim();
-    const emailValue = email.value.trim();
-    const messageValue = message.value.trim();
+    let firstnameSuccess = false;
+    let surnameSuccess = false;
+    let telephoneSuccess = false;
+    let emailSuccess = false;
+    let messageSuccess = false;
 
-    let firstnameSuccess = true;
-    let surnameSuccess = true;
-    let telephoneSuccess = true;
-    let emailSuccess = true;
-    let messageSuccess = true;
-
-    if(firstnameValue === '') {
-        setErrorFor(firstname, "First name cannot be blank");
-        firstnameSuccess = false;
-    }
-    else if(!lettersAndSpaceCheck(firstnameValue)) {
+    if(!validateInput(regexName, firstname.value.trim())) {
         setErrorFor(firstname, "Invalid name");
         firstnameSuccess = false
     }
@@ -47,11 +41,7 @@ function checkInputs() {
         firstnameSuccess = true;
     }
 
-    if(surnameValue === '') {
-        setErrorFor(surname, "Surname cannot be blank");
-        surnameSuccess = false;
-    }
-    else if(!lettersAndSpaceCheck(surnameValue)) {
+    if(!validateInput(regexName, surname.value.trim())) {
         setErrorFor(surname, "Invalid surname");
         surnameSuccess = false;
     }
@@ -60,7 +50,7 @@ function checkInputs() {
         surnameSuccess = true;
     }
 
-    if(!numbersAndSpaceCheck(telephoneValue)) {
+    if(!validateInput(regexNumber, telephone.value.trim())) {
         setErrorFor(telephone, "Invalid telephone");
         telephoneSuccess = false;
     }
@@ -69,11 +59,7 @@ function checkInputs() {
         telephoneSuccess = true;
     }
 
-    if(emailValue === '') {
-        setErrorFor(email, "Email cannot be blank");
-        emailSuccess = false;
-    }
-    else if(!emailCheck(emailValue)) {
+    if(!validateInput(regexEmail, email.value.trim())) {
         setErrorFor(email, "Invalid email");
         emailSuccess = false;
     }
@@ -82,8 +68,8 @@ function checkInputs() {
         emailSuccess = true;
     }
 
-    if(messageValue === '') {
-        setErrorFor(message, "Message cannot be blank");
+    if(message.value.trim().length < 10 || message.value.trim() === '') {
+        setErrorFor(message, "Message is too short or cannot be blank");
         messageSuccess = false;
     }
     else {
@@ -91,8 +77,7 @@ function checkInputs() {
         messageSuccess = true;
     }
 
-    return (firstnameSuccess && surnameSuccess && telephoneSuccess && emailSuccess && messageSuccess);
-    
+    return (firstnameSuccess && surnameSuccess && telephoneSuccess && emailSuccess && messageSuccess);  
 }
 
 /* Display error message and error icon */
@@ -113,38 +98,7 @@ function setSuccessFor(input) {
     formControl.className = 'form-control success';
 }
 
-/* Check whether string contain only letters and space */
-function lettersAndSpaceCheck(str) {
-    var regEx = /^[a-zA-Z\s]*$/;
-
-    if(str.match(regEx)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-/* Check whether string contain only numbers and space */
-function numbersAndSpaceCheck(str) {
-    var regEx = /^[0-9\s]*$/;
-
-    if(str.match(regEx)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-/* Check whether email is valid or not */
-function emailCheck(str) {
-    var regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    if(str.match(regEx)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+/* Validate user input - regexpression match */
+function validateInput(regex, input) {
+    return regex.test(input);
 }

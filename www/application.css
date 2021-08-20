@@ -258,7 +258,9 @@ article p {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
+    height: 60vh;
     z-index: 1;
+    overflow: auto;
 }
 
 .success-message button {
@@ -516,9 +518,9 @@ footer {
         margin: 0;
     } 
 
-
     .success-message  {
-        position: absolute;
+        height: 90vh;
+        overflow: scroll;
     }
 
     .success-message button {

@@ -39,6 +39,7 @@ p {
     display: flex;
     list-style: none;
     margin-right: 48px;
+    margin-right: 48px;
     margin-right: 3rem;
 }
 
@@ -256,7 +257,8 @@ article p {
     border: 1px solid #6a7b8b;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     width: 80vw;
     height: 60vh;
     z-index: 1;
@@ -276,11 +278,17 @@ article p {
 }
 
 .thank-you {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     text-align: left;
     margin: 50px 100px;
-    justify-content: space-between;
-    align-items: flex-start;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
 }
 
 .thank-you h3 {
@@ -429,6 +437,7 @@ footer {
     width: 70px;
     height: 50px;
     margin: 32px 48px;
+    margin: 32px 48px;
     margin: 2rem 3rem;
 }
 
@@ -529,10 +538,18 @@ footer {
     }
     
     .thank-you {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         margin: 50px 0;
-        justify-content: center;
-        align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                    -ms-grid-row-align: center;
+                align-items: center;
     }
     
     .thank-you h3 {
